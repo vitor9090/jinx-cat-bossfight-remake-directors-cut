@@ -1,10 +1,23 @@
-#/anaconda3/envs/py310/bin/python
 from ursina import *
-
-# I'm probably going to make a first person controller, not now tho (12:15) since it's almost school time.
+from src.mo_entity import MoEntity
+from src.client import Client
+from src.boss import Boss
 
 def main() -> None:
-    pass
+    app = Ursina(borderless=False)
+    
+    window.color = color.white
+
+    camera.orthographic = True
+    camera.fov = 16
+
+    boss = Boss()
+    client = Client()
+    
+    print('boss' in boss.mo_tags)
+    
+    app.run()
 
 if __name__ == '__main__':
-    main()   
+    main()
+
