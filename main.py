@@ -1,5 +1,8 @@
 from ursina import *
+
 from src.mo_entity import MoEntity
+from src.fstext import FSText
+
 from src.client import Client
 from src.boss import Boss
 
@@ -14,7 +17,7 @@ def main() -> None:
     boss = Boss()
     client = Client()
     
-    print('boss' in boss.mo_tags)
+    #FSText('FSText text', color.red, boss.position * camera.fov)
     
     app.run()
 

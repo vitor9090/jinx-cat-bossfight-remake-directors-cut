@@ -1,4 +1,6 @@
 from ursina import *
+from src.fstext import FSText
+
 
 class MoEntity(Entity):
     def __init__(self, mo_tags=[]):
@@ -23,6 +25,8 @@ class MoEntity(Entity):
         
     def damage(self, amount: int, actor: str) -> None:
         self.health += amount
+        
+        FSText(str(self.health), color.red, self.position)
         
         self.hit_info['hit'] = True
         self.hit_info['actor'] = actor
