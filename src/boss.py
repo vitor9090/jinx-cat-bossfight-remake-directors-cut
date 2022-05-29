@@ -5,6 +5,7 @@ from ursina import *
 
 from src.mo_entity import MoEntity
 
+#listen to EDEN on spotify! it's really good.
 
 class Boss(MoEntity):
     def __init__(self):
@@ -13,15 +14,23 @@ class Boss(MoEntity):
             )
             
         self.scale = 2
-            
-        jinx_phases_textures = [Texture(f'{self.textures_path}/jinx_my_beloved.jpg')]
         
-        self.texture = jinx_phases_textures[0]
+        self.jinx_phases = [
+                {
+                'texture': Texture(f'{self.src_path}/textures/jinx_my_beloved.jpg'),
+                'movement pattern': self.bounce
+                }
+            ]
             
-    def bounce(self, speed: float, multiplier: float) -> float:
-        return abs(sin(time.time() * speed)) * multiplier
+        self.current_phase = self.jinx_phases[0] 
+        
+        self.texture = self.current_phase['texture']
+            
+    def bounce(self, speed: float, multiplier: float) -> None:
+        self.y = abs(sin(time.time() * speed)) * multiplier
             
     def update(self):
         super().update()
         
-        self.y = self.bounce(10.0, 3.0)
+        self.current_phase['movement pattern'](10.0, 1.0)
+

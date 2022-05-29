@@ -1,7 +1,12 @@
-from random import choice
+from random import randrange
 import time
 
 from ursina import *
+
+# I can't believe i've coded something this bad lmao
+# Please fix this shit
+# My god
+# Goofy ahh code
 
 class FSText(Entity):
     def __init__(self, string: str, string_color, start_position):
@@ -11,7 +16,7 @@ class FSText(Entity):
         
         self.string_color = string_color
         
-        self.direction = Vec2(choice([-1, 0, 1]), choice([-1, 0, 1]))
+        self.direction = Vec2(0, 1)
         
         self.text = Text(text=self.string,
         position=self.position,
@@ -20,14 +25,18 @@ class FSText(Entity):
         font='src/fonts/goofy_jinx.ttf'
         )
         
-        self.speed = 0.2
+        self.force = -.02
+        self.velocity = 0
         
         self.time_alive = 0
-        self.max_time_alive = 2
+        self.max_time_alive = .5
         
     def update(self):
-        self.text.position += (self.direction * self.speed * time.dt)
-        self.speed -= .002
+        if self.velocity == 0:
+            self.velocity += .6
+    
+        self.velocity += self.force
+        self.text.position += (self.direction * self.velocity * time.dt)
         
         if self.time_alive < self.max_time_alive:
             self.time_alive += time.dt

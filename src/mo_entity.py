@@ -21,7 +21,7 @@ class MoEntity(Entity):
         self.refresh_time = 0
         self.refresh_rate = .5
         
-        self.textures_path = 'src/textures'
+        self.src_path = 'src/'
         
     def damage(self, amount: int, actor: str) -> None:
         self.health += amount
