@@ -7,4 +7,5 @@
 3. New phases
 4. Secret boss fight
 5. New graphics
-6. I'll think abt more features later lol
+6. Cutscenes??? maybe maybe maybe
+7. I'll think abt more features later lol
