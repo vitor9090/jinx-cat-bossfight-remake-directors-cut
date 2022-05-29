@@ -1,4 +1,5 @@
-from math import sin
+from math import sin, cos, sqrt, pi, asin
+
 import time
 
 from ursina import *
@@ -19,18 +20,43 @@ class Boss(MoEntity):
                 {
                 'texture': Texture(f'{self.src_path}/textures/jinx_my_beloved.jpg'),
                 'movement pattern': self.bounce
+                },
+                {
+                'texture': Texture(f'{self.src_path}/textures/jinx_phase_1.jpg'),
+                'movement pattern': self.hourglass
                 }
             ]
             
-        self.current_phase = self.jinx_phases[0] 
         
-        self.texture = self.current_phase['texture']
+        self.health = 0
+        self.max_health = 200
+        
+        self.phase_num = 0
             
-    def bounce(self, speed: float, multiplier: float) -> None:
-        self.y = abs(sin(time.time() * speed)) * multiplier
-            
+    def bounce(self) -> None:
+        self.x = 0
+        self.y = abs(sin(time.time() * 10)) * 2
+        
+    def hourglass(self) -> None:
+        self.x = (cos(time.time() * 2) * 2)
+        self.y = (sin(time.time() * 2) * 2) * pi/self.x
+        
+    def input(self, key):
+        if key == '.':
+            self.phase_num += 1
+            self.phase_num %= len(self.jinx_phases)
+        if key == ',':
+            self.phase_num -= 1
+            self.phase_num %= len(self.jinx_phases)
+
+        
     def update(self):
         super().update()
-        
-        self.current_phase['movement pattern'](10.0, 1.0)
+        if self.health > 100:
+            self.phase_num = 1
+        else:
+            self.phase_num = 0
+
+        self.jinx_phases[self.phase_num]['movement pattern']()
+        self.texture = self.jinx_phases[self.phase_num]['texture']
 

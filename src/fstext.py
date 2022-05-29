@@ -7,6 +7,7 @@ from ursina import *
 # Please fix this shit
 # My god
 # Goofy ahh code
+# PLEASE JUST POLISH THIS ALREADY
 
 class FSText(Entity):
     def __init__(self, string: str, string_color, start_position):
@@ -19,7 +20,7 @@ class FSText(Entity):
         self.direction = Vec2(0, 1)
         
         self.text = Text(text=self.string,
-        position=self.position,
+        position=self.text_position,
         color=self.string_color,
         origin=Vec2(0, 0),
         font='src/fonts/goofy_jinx.ttf'
